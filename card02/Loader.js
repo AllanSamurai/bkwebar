@@ -425,7 +425,7 @@ var UnityLoader = UnityLoader || {
         return;
       if (this.didShowErrorMessage)
         return;
-      var message = "An error occurred running the Unity content on this page. See your browser JavaScript console for more info. The error was:\n" + message;
+      var message = "Ocorreu um erro ao executar o conteúdo dessa nesta página. Consulte o console JavaScript do navegador para obter mais informações. O erro foi:\n" + message;
       if (message.indexOf("DISABLE_EXCEPTION_CATCHING") != -1) {
         message = "An exception has occurred, but exception handling has been disabled in this build. If you are the developer of this content, enable exceptions in your project WebGL player settings to be able to catch the exception or see the stack trace.";
       } else if (message.indexOf("Cannot enlarge memory arrays") != -1) {
@@ -937,7 +937,7 @@ var UnityLoader = UnityLoader || {
       UnityLoader.Job.schedule(Module, "processAsmFramework", ["downloadAsmFramework", "processAsmCode", "setupIndexedDB"], UnityLoader.processAsmFrameworkJob);
 
     } else {
-      throw "WebAssembly support is not detected in this browser.";
+      throw "O suporte ao WebAssembly não foi detectado neste navegador.";
     }
 
     UnityLoader.scheduleBuildDownloadJob(Module, "downloadData", "dataUrl");
