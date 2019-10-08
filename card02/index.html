@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name='viewport'
+        content='width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no' />
+    <meta charset='utf-8'>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Aventuras King Jr</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <style>
+        body,html{margin:0;padding:0}
+        html{height:100%;background-color:#b4b4b4}
+        body{margin:0;border:0;padding:0;height:100%;overflow:hidden;width:100%;-webkit-tap-highlight-color:transparent}
+        #capture{background:0 0!important;display:block;position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%;margin:0}
+        #gameContainer canvas{width:100%;height:100%}
+        #gameContainer{background:0 0!important;display:block;position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%;margin:0}
+        canvas:focus{outline:0}
+        .loadScreen{background-color:#fff;height:100%;margin:0;z-index:1000}
+        .loadScreen *{position:relative}
+        .logoTop{left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%);height:20vh}
+        .logo{top:20%;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%);height:10vh}
+        .progress{top:24%;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%);max-width:35vh;height:1vh}
+        .progress .empty{float:right;background-color:#e4e3e4;height:100%;width:100%;display:inline-block}
+        .progress .full{height:100%;width:100%;display:inline-block;float:left;background-color:#f79e31}
+        .info{top:27%;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%);max-width:35vh;height:1.3vh}
+        .horizontal{display:block;width:100%;height:auto;left:50%;transform:translate(-50%,0)}
+        .vertical{display:block;width:auto;height:100%;left:50%;transform:translate(-50%,0)}
+    </style>
+    <script src="TemplateData/progress.js"></script>
+    <script src="Loader.js"></script>
+    <script>
+        var gameInstance = UnityLoader.instantiate("gameContainer", "Build/arcade.json", {
+            compatibilityCheck: function (unityInstance, onsuccess, onerror) {
+                if (!UnityLoader.SystemInfo.hasWebGL) {
+                    unityInstance.popup("Seu navegador não suporta WebGL", [{
+                        text: "OK",
+                        callback: onerror
+                    }]);
+                } else if (["Edge", "Firefox", "Chrome", "Safari"].indexOf(UnityLoader.SystemInfo.browser) == -1) {
+                    unityInstance.popup("Observe que atualmente o seu navegador não é compatível com este conteúdo em WebGL. Pressione OK se desejar continuar assim mesmo.", [{
+                        text: "OK",
+                        callback: onsuccess
+                    }]);
+                } else {
+                    onsuccess();
+                }
+            },
+            onProgress: UnityProgress,
+            Module: {
+                "webglContextAttributes": { "preserveDrawingBuffer": true },
+            }
+        });
+    </script>
+    <script src="aswebar.js"></script>
+</head>
+
+<body>
+    <div id="gameContainer" style="width: 100%; height: 100%; margin: auto"></div>
+    <div id="loadScreen" class="loadScreen">
+        <div class="logoTop">
+            <img class="vertical" width="206" height="429" src="TemplateData/topLogo.png">
+        </div>
+        <div class="logo">
+            <img class="vertical" width="507" height="213" src="TemplateData/progressLogo.png">
+        </div>
+        <div id="progress" class="progress">
+            <div id="empty" class="empty">
+            </div>
+            <div id="full" class="full">
+            </div>
+        </div>
+        <div class="info">
+            <img class="vertical" width="413" height="25" src="TemplateData/progressText.png">
+        </div>
+    </div>   
+</body>
+
+</html>
