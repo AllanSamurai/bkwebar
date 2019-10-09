@@ -28,9 +28,9 @@
         .vertical{display:block;width:auto;height:100%;left:50%;transform:translate(-50%,0)}
     </style>
     <script src="TemplateData/progress.js"></script>
-    <script src="Loader.js"></script>
+    <script src="ULoader.js"></script>
     <script>
-        var gameInstance = UnityLoader.instantiate("gameContainer", "Build/arcade.json", {
+        var gameInstance = UnityLoader.instantiate("gameContainer", "Build/arcade2019.json", {
             compatibilityCheck: function (unityInstance, onsuccess, onerror) {
                 if (!UnityLoader.SystemInfo.hasWebGL) {
                     unityInstance.popup("Seu navegador não suporta WebGL", [{
@@ -49,6 +49,7 @@
             onProgress: UnityProgress,
             Module: {
                 "webglContextAttributes": { "preserveDrawingBuffer": true },
+                "TOTAL_MEMORY": 536870912,
             }
         });
     </script>
