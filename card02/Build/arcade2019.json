@@ -8,7 +8,7 @@
 "asmCodeUrl": "arcade2019.asm.code.unityweb",
 "asmMemoryUrl": "arcade2019.asm.memory.unityweb",
 "asmFrameworkUrl": "arcade2019.asm.framework.unityweb",
-"TOTAL_MEMORY": 536870912,
+"TOTAL_MEMORY": 268435456,
 "graphicsAPI": ["WebGL 1.0"],
 "webglContextAttributes": {"preserveDrawingBuffer": false},
 "splashScreenStyle": "Dark",
