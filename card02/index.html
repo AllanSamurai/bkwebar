@@ -30,7 +30,7 @@
     <script src="TemplateData/progress.js"></script>
     <script src="ULoader.js"></script>
     <script>
-        var gameInstance = UnityLoader.instantiate("gameContainer", "Build/arcade2019.json", {
+        var gameInstance = UnityLoader.instantiate("gameContainer", "Build/arcade2019v2.json", {
             compatibilityCheck: function (unityInstance, onsuccess, onerror) {
                 if (!UnityLoader.SystemInfo.hasWebGL) {
                     unityInstance.popup("Seu navegador não suporta WebGL", [{
@@ -73,7 +73,27 @@
         <div class="info">
             <img class="vertical" width="413" height="25" src="TemplateData/progressText.png">
         </div>
-    </div>   
+    </div>
+    <div id="photo" style="position: absolute; width: 100%; height: 100%; background-color: white; display: none;">
+        <img id="photoImg" src="" alt="Captura de tela" width="90%" height="90%"
+            style="position: relative; top: 5%; left: 5%;">
+        <div style="position: absolute; top: 96%; width: 100%; height: 3%;">
+            <img src="TemplateData/toque.png"
+                style="position: relative; height: 100%; width: auto; left: 50%; -webkit-transform: translateX(-50%);transform: translateX(-50%);"
+                alt="">
+        </div>
+        <div id="photoClose" onclick="ClosePhoto();"
+            style="position: absolute;top: 0%;right: 0%; width: 10vh;height: 10vh;">
+            <div
+                style="position: relative; top: 20%; left: 20%; width: 60%;height: 60%; background-image: url('TemplateData/close.png'); background-size: cover;">
+            </div>
+        </div>
+    </div>
+    <script>
+        function ClosePhoto() {
+            document.getElementById("photo").style.display = "none";
+        }
+    </script>
 </body>
 
 </html>
