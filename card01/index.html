@@ -23,21 +23,28 @@
         .progress{top:24%;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%);max-width:35vh;height:1vh}
         .progress .empty{float:right;background-color:#e4e3e4;height:100%;width:100%;display:inline-block}
         .progress .full{height:100%;width:100%;display:inline-block;float:left;background-color:#f79e31}
+        .progress .downloadInfo{position: absolute;font-size: .85vh;text-align: center;width: 100%;color: black;}
         .info{top:27%;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%);max-width:35vh;height:1.3vh}
+        .waitInfo{top:32%;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%);max-width:35vh;height:3.5vh}
         .horizontal{display:block;width:100%;height:auto;left:50%;transform:translate(-50%,0)}
         .vertical{display:block;width:auto;height:100%;left:50%;transform:translate(-50%,0)}
     </style>
     <script src="TemplateData/progress.js"></script>
     <script src="ULoader.js"></script>
     <script>
-        var gameInstance = UnityLoader.instantiate("gameContainer", "Build/quiz2019v2.json", {
+        var gameInstance = UnityLoader.instantiate("gameContainer", "Build/quiz2019v3.json", {
             compatibilityCheck: function (unityInstance, onsuccess, onerror) {
                 if (!UnityLoader.SystemInfo.hasWebGL) {
                     unityInstance.popup("Seu navegador não suporta WebGL", [{
                         text: "OK",
                         callback: onerror
                     }]);
-                } else if (["Edge", "Firefox", "Chrome", "Safari"].indexOf(UnityLoader.SystemInfo.browser) == -1) {
+                } else if (UnityLoader.SystemInfo.os === 'iOS' && UnityLoader.SystemInfo.browserVersion < 12.2 && ["Safari"].indexOf(UnityLoader.SystemInfo.browser) == -1) {
+                    unityInstance.popup("Observe que atualmente o seu navegador não é compatível com este conteúdo em WebGL. Pressione OK se desejar continuar assim mesmo.", [{
+                        text: "OK",
+                        callback: onsuccess
+                    }]);                
+                } else if (["Chrome", "Safari"].indexOf(UnityLoader.SystemInfo.browser) == -1) {
                     unityInstance.popup("Observe que atualmente o seu navegador não é compatível com este conteúdo em WebGL. Pressione OK se desejar continuar assim mesmo.", [{
                         text: "OK",
                         callback: onsuccess
@@ -49,6 +56,7 @@
             onProgress: UnityProgress,
             Module: {
                 "webglContextAttributes": { "preserveDrawingBuffer": true },
+                "TOTAL_MEMORY": 67108864,
             }
         });
     </script>
@@ -56,7 +64,6 @@
 </head>
 
 <body>
-    <div id="gameContainer" style="width: 100%; height: 100%; margin: auto"></div>
     <div id="loadScreen" class="loadScreen">
         <div class="logoTop">
             <img class="vertical" width="206" height="429" src="TemplateData/topLogo.png">
@@ -65,15 +72,18 @@
             <img class="vertical" width="507" height="213" src="TemplateData/progressLogo.png">
         </div>
         <div id="progress" class="progress">
-            <div id="empty" class="empty">
-            </div>
-            <div id="full" class="full">
-            </div>
+            <div id="empty" class="empty"></div>
+            <div id="full" class="full"></div>
+            <div id="downloadInfo" class="downloadInfo"></div>
         </div>
         <div class="info">
             <img class="vertical" width="413" height="25" src="TemplateData/progressText.png">
         </div>
+        <div class="waitInfo">
+            <img class="vertical" width="654" height="75" src="TemplateData/wait.png">
+        </div>
     </div>
+    <div id="gameContainer" style="width: 100%; height: 100%; margin: auto"></div>    
     <div id="photo" style="position: absolute; width: 100%; height: 100%; background-color: white; display: none;">
         <img id="photoImg" src="" alt="Captura de tela" width="90%" height="90%"
             style="position: relative; top: 5%; left: 5%;">
