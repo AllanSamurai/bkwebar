@@ -32,15 +32,25 @@
     <script src="TemplateData/progress.js"></script>
     <script src="ULoader.js"></script>
     <script>
-        var gameInstance = UnityLoader.instantiate("gameContainer", "Build/arcade2019v3.json", {
+        var gameInstance = UnityLoader.instantiate("gameContainer", "Build/arcade2019v4.json", {
             compatibilityCheck: function (unityInstance, onsuccess, onerror) {
                 if (!UnityLoader.SystemInfo.hasWebGL) {
                     unityInstance.popup("Seu navegador não suporta WebGL", [{
                         text: "OK",
                         callback: onerror
                     }]);
-                } else if (UnityLoader.SystemInfo.os === 'iOS' && UnityLoader.SystemInfo.browserVersion < 12.2 && ["Safari"].indexOf(UnityLoader.SystemInfo.browser) == -1) {
-                    unityInstance.popup("Observe que atualmente o seu navegador não é compatível com este conteúdo em WebGL. Pressione OK se desejar continuar assim mesmo.", [{
+                } else if (UnityLoader.SystemInfo.os === 'iOS' && ["Safari"].indexOf(UnityLoader.SystemInfo.browser) > -1 && UnityLoader.SystemInfo.browserVersion < 12.2) {
+                    unityInstance.popup("Observe que atualmente a versão mínima do iOS compatível com este conteúdo em WebGL é iOS 12.2. Pressione OK se desejar continuar assim mesmo.", [{
+                        text: "OK",
+                        callback: onsuccess
+                    }]);                
+                } else if (UnityLoader.SystemInfo.os === 'iOS' && ["Safari"].indexOf(UnityLoader.SystemInfo.browser) == -1) {
+                    unityInstance.popup("Observe que atualmente o seu navegador não é compatível com este conteúdo em WebGL. Tente usar o navedador Safari. Pressione OK se desejar continuar assim mesmo.", [{
+                        text: "OK",
+                        callback: onsuccess
+                    }]);                
+                } else if (UnityLoader.SystemInfo.os === 'Android' && ["Chrome"].indexOf(UnityLoader.SystemInfo.browser) == -1) {
+                    unityInstance.popup("Observe que atualmente o seu navegador não é compatível com este conteúdo em WebGL Tente usar o navegador Chrome. Pressione OK se desejar continuar assim mesmo.", [{
                         text: "OK",
                         callback: onsuccess
                     }]);                
